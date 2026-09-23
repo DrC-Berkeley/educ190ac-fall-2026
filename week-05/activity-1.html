@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#002676">
+  <title>Week 5 | The Lecture We Build</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #002676;
+      --gold: #fdb515;
+      --pale-gold: #fff6e0;
+      --white: #ffffff;
+      --black: #000000;
+      --max: 74rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--black);
+      font-family: Lato, Arial, sans-serif;
+      font-size: clamp(1.125rem, 1rem + 0.3vw, 1.35rem);
+      line-height: 1.5;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 0.75rem;
+      left: 0.75rem;
+      transform: translateY(-180%);
+      background: var(--gold);
+      color: var(--black);
+      padding: 0.75rem 1rem;
+      font-weight: 900;
+      text-decoration-thickness: 0.12em;
+      text-underline-offset: 0.15em;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+    a:focus-visible { outline: 0.25rem solid var(--gold); outline-offset: 0.25rem; }
+
+    .wrap {
+      width: min(calc(100% - 2.5rem), var(--max));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      background: var(--navy);
+      color: var(--white);
+      border-bottom: 0.55rem solid var(--gold);
+    }
+
+    .site-header .wrap { padding-block: clamp(2.5rem, 6vw, 4.75rem); }
+
+    .eyebrow {
+      margin: 0 0 0.7rem;
+      color: var(--gold);
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p { overflow-wrap: break-word; }
+
+    h1 {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(2.75rem, 6.5vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+
+    .header-note {
+      max-width: 42rem;
+      margin: 1rem 0 0;
+      color: var(--white);
+      font-size: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);
+      font-weight: 700;
+    }
+
+    .topic {
+      padding-block: clamp(3.75rem, 8vw, 6.5rem);
+      border-bottom: 0.18rem solid var(--navy);
+    }
+
+    .topic--white { background: var(--white); color: var(--black); }
+    .topic--gold { background: var(--pale-gold); color: var(--black); }
+    .topic--navy { background: var(--navy); color: var(--white); }
+
+    .topic__heading {
+      display: grid;
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      gap: clamp(1.25rem, 4vw, 3.5rem);
+      align-items: start;
+      margin-bottom: clamp(2.25rem, 5vw, 3.75rem);
+    }
+
+    .topic__number {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2.4rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .topic--navy .topic__number { color: var(--gold); }
+
+    .topic h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.03;
+    }
+
+    .topic--navy h2 { color: var(--white); }
+
+    .topic__source {
+      margin: 0.75rem 0 0;
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .topic--navy .topic__source { color: var(--white); }
+
+    .team-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-bottom: 0.16rem solid var(--navy);
+    }
+
+    .topic--navy .team-list { border-bottom-color: var(--white); }
+
+    .team-list li {
+      display: grid;
+      grid-template-columns: minmax(6.5rem, 0.28fr) minmax(0, 1.72fr);
+      gap: clamp(1rem, 3vw, 2.5rem);
+      align-items: baseline;
+      padding-block: clamp(1.4rem, 3vw, 2.15rem);
+      border-top: 0.16rem solid var(--navy);
+    }
+
+    .topic--navy .team-list li { border-top-color: var(--white); }
+
+    .room {
+      color: var(--navy);
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .topic--navy .room { color: var(--gold); }
+
+    .team-list p {
+      margin: 0;
+      color: var(--black);
+      font-size: clamp(1.35rem, 1.1rem + 0.85vw, 2rem);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .topic--navy .team-list p { color: var(--white); }
+
+    .transition {
+      background: var(--gold);
+      color: var(--black);
+      border-bottom: 0.18rem solid var(--navy);
+    }
+
+    .transition .wrap { padding-block: 1.6rem; }
+
+    .transition p {
+      margin: 0;
+      color: var(--black);
+      font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.8rem);
+      font-weight: 900;
+    }
+
+    .debrief {
+      background: var(--navy);
+      color: var(--white);
+      padding-block: clamp(4rem, 8vw, 6.5rem);
+      border-bottom: 0.55rem solid var(--gold);
+    }
+
+    .debrief-label {
+      margin: 0 0 0.6rem;
+      color: var(--gold);
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .debrief h2 {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(2.7rem, 6vw, 4.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.04;
+    }
+
+    .debrief-question {
+      margin: 0.85rem 0 clamp(2.25rem, 5vw, 3.5rem);
+      color: var(--white);
+      font-size: clamp(1.4rem, 1.15rem + 0.9vw, 2rem);
+      font-weight: 700;
+    }
+
+    .question-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: question;
+      border-bottom: 0.14rem solid var(--white);
+    }
+
+    .question-list li {
+      counter-increment: question;
+      display: grid;
+      grid-template-columns: 4.5rem minmax(0, 1fr);
+      gap: 1rem;
+      padding-block: clamp(1.25rem, 2.5vw, 1.8rem);
+      border-top: 0.14rem solid var(--white);
+      color: var(--white);
+      font-size: clamp(1.45rem, 1.2rem + 1vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .question-list li::before {
+      content: counter(question, decimal-leading-zero);
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .carry {
+      background: var(--white);
+      color: var(--black);
+      padding-block: clamp(4rem, 8vw, 6rem);
+    }
+
+    .carry h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2.6rem, 5vw, 4.3rem);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+    }
+
+    .carry-note { margin: 0.8rem 0 2.4rem; color: var(--black); font-weight: 700; }
+
+    .carry-list {
+      margin: 0;
+      padding: 0 0 0 clamp(1.3rem, 3vw, 2.5rem);
+      list-style: none;
+      border-left: 0.55rem solid var(--gold);
+    }
+
+    .carry-list li {
+      padding-block: 0.45rem;
+      color: var(--navy);
+      font-size: clamp(1.7rem, 2.2vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .break {
+      background: var(--gold);
+      color: var(--black);
+      border-top: 0.18rem solid var(--navy);
+    }
+
+    .break .wrap { padding-block: 1.8rem; }
+    .break p { margin: 0; color: var(--black); font-size: clamp(1.5rem, 1.2rem + 1vw, 2.2rem); font-weight: 900; }
+
+    .page-footer { background: var(--navy); color: var(--white); }
+    .page-footer .wrap { padding-block: 1.6rem; }
+    .page-footer p { margin: 0; color: var(--white); font-weight: 700; }
+
+    @media (max-width: 42rem) {
+      .topic__heading { grid-template-columns: 1fr; gap: 0.75rem; }
+      .team-list li { grid-template-columns: 1fr; gap: 0.35rem; }
+      .question-list li { grid-template-columns: 3.25rem minmax(0, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    @media (forced-colors: active) {
+      .site-header,
+      .topic,
+      .debrief,
+      .transition,
+      .break,
+      .page-footer { border: 0.18rem solid CanvasText; }
+    }
+
+    @media print {
+      .topic,
+      .debrief,
+      .carry { padding-block: 2rem; }
+      .site-header .wrap { padding-block: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the shared lecture</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">EDUC 190AC · Week 5 · Curriculum Hour · 6:25–6:45</p>
+      <h1>The Lecture We Build</h1>
+      <p class="header-note">Each pair of teams adds one part of our shared orientation.</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="topic topic--white" id="banking" aria-labelledby="banking-heading">
+      <div class="wrap">
+        <div class="topic__heading">
+          <p class="topic__number" aria-hidden="true">01</p>
+          <div>
+            <h2 id="banking-heading">Banking Education</h2>
+            <p class="topic__source">Freire, with a connection back to Gramsci and Apple</p>
+          </div>
+        </div>
+        <ul class="team-list">
+          <li><span class="room">Room 5</span><p>What is Freire pushing against?</p></li>
+          <li><span class="room">Room 6</span><p>What happens when we connect Freire back to Gramsci and Apple?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="topic topic--gold" id="problem-posing" aria-labelledby="problem-heading">
+      <div class="wrap">
+        <div class="topic__heading">
+          <p class="topic__number" aria-hidden="true">02</p>
+          <div>
+            <h2 id="problem-heading">Problem-Posing &amp; Co-Investigation</h2>
+            <p class="topic__source">Freire, with a connection to critical theory and reflexivity</p>
+          </div>
+        </div>
+        <ul class="team-list">
+          <li><span class="room">Room 2</span><p>What changes when education becomes problem-posing?</p></li>
+          <li><span class="room">Room 9</span><p>What becomes possible when learners can investigate the conditions shaping their own education?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="topic topic--navy" id="praxis" aria-labelledby="praxis-heading">
+      <div class="wrap">
+        <div class="topic__heading">
+          <p class="topic__number" aria-hidden="true">03</p>
+          <div>
+            <h2 id="praxis-heading">Praxis</h2>
+            <p class="topic__source">Reflection and action, connected to material conditions</p>
+          </div>
+        </div>
+        <ul class="team-list">
+          <li><span class="room">Room 11</span><p>What is the relationship between reflection and action?</p></li>
+          <li><span class="room">Room 1</span><p>What happens when we connect praxis back to material conditions?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="topic topic--white" id="participation" aria-labelledby="participation-heading">
+      <div class="wrap">
+        <div class="topic__heading">
+          <p class="topic__number" aria-hidden="true">04</p>
+          <div>
+            <h2 id="participation-heading">Participation &amp; Authority</h2>
+            <p class="topic__source">Shor on meaningful participation, structure and teacher responsibility</p>
+          </div>
+        </div>
+        <ul class="team-list">
+          <li><span class="room">Room 7</span><p>When is participation actually meaningful?</p></li>
+          <li><span class="room">Room 8</span><p>If learners have meaningful influence, what remains the responsibility of the teacher?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="topic topic--gold" id="space" aria-labelledby="space-heading">
+      <div class="wrap">
+        <div class="topic__heading">
+          <p class="topic__number" aria-hidden="true">05</p>
+          <div>
+            <h2 id="space-heading">Space &amp; Access</h2>
+            <p class="topic__source">Soja, spatial justice and material conditions</p>
+          </div>
+        </div>
+        <ul class="team-list">
+          <li><span class="room">Room 3</span><p>What changes when we stop treating space as a neutral container?</p></li>
+          <li><span class="room">Room 4</span><p>How does space connect to access and material conditions?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="topic topic--navy" id="agency" aria-labelledby="agency-heading">
+      <div class="wrap">
+        <div class="topic__heading">
+          <p class="topic__number" aria-hidden="true">06</p>
+          <div>
+            <h2 id="agency-heading">Conditions for Agency</h2>
+            <p class="topic__source">Freire and Shor, connected to hidden curriculum</p>
+          </div>
+        </div>
+        <ul class="team-list">
+          <li><span class="room">Room 10</span><p>What conditions make it possible for learners to act rather than simply receive?</p></li>
+          <li><span class="room">Room 12</span><p>What might a learning environment teach even when it claims to value agency?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <aside class="transition" aria-label="Transition to the meta-debrief">
+      <div class="wrap"><p>We built the lecture. Now we turn the lens on the learning experience we just created.</p></div>
+    </aside>
+
+    <section class="debrief" id="meta-debrief" aria-labelledby="debrief-heading">
+      <div class="wrap">
+        <p class="debrief-label">Meta-Debrief · 6:45–6:55</p>
+        <h2 id="debrief-heading">Turn the Lens on Us</h2>
+        <p class="debrief-question">Was that actually critical pedagogy?</p>
+        <ol class="question-list">
+          <li>What did Dr. C control?</li>
+          <li>What did you control?</li>
+          <li>Where did you have meaningful influence?</li>
+          <li>What would have to change for you to have more?</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="carry" id="carry-forward" aria-labelledby="carry-heading">
+      <div class="wrap">
+        <h2 id="carry-heading">Carry It Forward</h2>
+        <p class="carry-note">Keep these questions with you as we move into Project Hour.</p>
+        <ul class="carry-list">
+          <li>Who gets to know?</li>
+          <li>Who gets to ask?</li>
+          <li>Who gets to decide?</li>
+          <li>Who gets to act?</li>
+          <li>What conditions make those things possible?</li>
+        </ul>
+      </div>
+    </section>
+
+    <aside class="break" aria-label="Break time">
+      <div class="wrap"><p>7:00–7:05 · Break</p></div>
+    </aside>
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrap"><p>EDUC 190AC · Fall 2026</p></div>
+  </footer>
+</body>
+</html>
